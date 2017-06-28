@@ -128,6 +128,9 @@ class MutableMicrophone(Microphone):
         if self.stream:
             self.stream.unmute()
 
+    def is_muted(self):
+        return self.muted
+
 
 class ResponsiveRecognizer(speech_recognition.Recognizer):
     # Padding of silence when feeding to pocketsphinx

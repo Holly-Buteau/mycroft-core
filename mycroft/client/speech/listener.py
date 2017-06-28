@@ -152,7 +152,7 @@ class AudioConsumer(Thread):
             self.emitter.emit("recognizer_loop:no_internet")
         except HTTPError as e:
             if e.response.status_code == 401:
-                text = "pair my device"
+                text = "pair my device"  # phrase to start the pairing process
                 LOG.warn("Access Denied at mycroft.ai")
         except Exception as e:
             LOG.error(e)
@@ -254,6 +254,12 @@ class RecognizerLoop(EventEmitter):
     def unmute(self):
         if self.microphone:
             self.microphone.unmute()
+
+    def is_muted(self):
+        if self.microphone:
+            return self.microphone.is_muted()
+        else:
+            return True  # consider 'no mic' muted
 
     def sleep(self):
         self.state.sleeping = True
